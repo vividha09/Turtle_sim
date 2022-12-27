@@ -1,0 +1,19 @@
+import rospy
+from geometry_msgs.msg import Twist
+
+def move_turtle(radius):
+    rospy.init_node('turtlecirclemove',anonymous=True)
+    pub = rospy.Publisher('/turtle1/cmd_vel',Twist, queue_size=10)
+    rate = rospy.Rate(1)
+    vel = Twist()
+
+    for j in range(0,10):
+        vel.linear.x = radius
+        vel.angular.z = 1.0
+        rospy.loginfo("Radius = %f",radius)
+        pub.publish(vel)
+        rate.sleep()
+
+if __name__ == '__main__':
+    for i in range(1,4,1):
+        move_turtle(i)
